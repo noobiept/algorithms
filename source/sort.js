@@ -50,4 +50,21 @@ var Sort;
         return quickSort(left).concat(pivot, quickSort(right));
     }
     Sort.quickSort = quickSort;
+    /**
+     * Separates the list in a sorted and unsorted part.
+     * Goes through every unsorted element, and starting at the end of the sorted part, keep shifting the elements until it finds the right position of the element.
+     */
+    function insertionSort(list) {
+        var length = list.length;
+        for (var a = 0; a < length; a++) {
+            var value = list[a];
+            for (var b = a - 1; b >= 0 && list[b] > value; b--) {
+                list[b + 1] = list[b];
+            }
+            // add the value in the correct position
+            list[b + 1] = value;
+        }
+        return list;
+    }
+    Sort.insertionSort = insertionSort;
 })(Sort || (Sort = {}));

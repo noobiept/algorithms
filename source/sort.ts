@@ -70,4 +70,33 @@ export function quickSort( list: number[] )
 
     return quickSort( left ).concat( pivot, quickSort( right ) );
     }
+
+
+/**
+ * Separates the list in a sorted and unsorted part.
+ * Goes through every unsorted element, and starting at the end of the sorted part, keep shifting the elements until it finds the right position of the element.
+ */
+export function insertionSort( list: number[] )
+    {
+    var length = list.length;
+
+        // go through every (unsorted) element
+    for (var a = 0 ; a < length ; a++)
+        {
+        var value = list[ a ];
+
+            // sort the element
+            // start at the end of the sorted part
+            // start shifting elements until we find the correct position for the value
+        for (var b = a - 1 ; b >= 0 && list[ b ] > value ; b--)
+            {
+            list[ b + 1 ] = list[ b ];
+            }
+
+            // add the value in the correct position
+        list[ b + 1 ] = value;
+        }
+
+    return list;
+    }
 }

@@ -27,3 +27,7 @@ QUnit.test( 'quickSort()', function( assert )
     {
     testSort( Sort.quickSort, assert );
     });
+QUnit.test( 'insertionSort()', function( assert )
+    {
+    testSort( Sort.insertionSort, assert );
+    });
