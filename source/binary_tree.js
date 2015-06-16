@@ -44,18 +44,15 @@ var BinaryTree;
         if (!node) {
             return null;
         }
-        if (node.value === value) {
+        if (value === node.value) {
             return node;
         }
-        var left = find(node.left, value);
-        if (left) {
-            return left;
+        else if (value < node.value) {
+            return find(node.left, value);
         }
-        var right = find(node.right, value);
-        if (right) {
-            return right;
+        else {
+            return find(node.right, value);
         }
-        return null;
     }
     BinaryTree.find = find;
     /**

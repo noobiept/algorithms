@@ -62,27 +62,20 @@ export function find( node: Node, value: number )
         return null;
         }
 
-    if ( node.value === value )
+    if ( value === node.value )
         {
         return node;
         }
 
-
-    var left = find( node.left, value );
-
-    if ( left )
+    else if ( value < node.value )
         {
-        return left;
+        return find( node.left, value );
         }
 
-    var right = find( node.right, value );
-
-    if ( right )
+    else
         {
-        return right;
+        return find( node.right, value );
         }
-
-    return null;
     }
 
 
