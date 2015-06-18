@@ -86,12 +86,19 @@ class LinkedList
     addAfter( referenceNode: ListNode, value: any )
         {
         var node = new ListNode( value );
+        var next = referenceNode.next;
 
         node.previous = referenceNode;
-        node.next = referenceNode.next;
+        node.next = next;
         referenceNode.next = node;
 
-        if ( referenceNode === this.last )
+        if ( next )
+            {
+            next.previous = node;
+            }
+
+            // means the reference node is the last node
+        else
             {
             this.last = node;
             }
@@ -110,19 +117,19 @@ class LinkedList
         var node = new ListNode( value );
         var previous = referenceNode.previous;
 
+        node.previous = previous;
+        node.next = referenceNode;
+        referenceNode.previous = node;
+
         if ( previous )
             {
             previous.next = node;
-            node.previous = previous;
             }
 
         else
             {
             this.first = node;
             }
-
-        node.next = referenceNode;
-        referenceNode.previous = node;
 
         this.length++;
 
@@ -225,6 +232,7 @@ class LinkedList
             {
             var next = node.next;
             this.first = next;
+            this.length--;
 
             if ( next )
                 {
@@ -257,6 +265,7 @@ class LinkedList
             {
             var previous = node.previous;
             this.last = previous;
+            this.length--;
 
             if ( previous )
                 {
@@ -476,9 +485,9 @@ class LinkedList
      * Merge list2 at the end of list1.
      * The node objects from list2 are reused, so probably best not to use the list2 after.
      */
-    merge( list1: LinkedList, list2: LinkedList )
+    merge( list2: LinkedList )
         {
-        var last1 = list1.last;
+        var last1 = this.last;
         var first2 = list2.first;
 
             // check if list2 has any elements
@@ -490,20 +499,20 @@ class LinkedList
                 last1.next = first2;
                 first2.previous = last1;
 
-                list1.last = list2.last;
-                list1.length += list2.length;
+                this.last = list2.last;
+                this.length += list2.length;
                 }
 
                 // list1 doesn't have any elements
             else
                 {
-                list1.first = list2.first;
-                list1.last = list2.last;
-                list1.length = list2.length;
+                this.first = list2.first;
+                this.last = list2.last;
+                this.length = list2.length;
                 }
             }
 
-        return list1;
+        return this;
         }
 
 
@@ -511,7 +520,7 @@ class LinkedList
      * Merge list2 at a given position in list1.
      * The node objects from list2 are reused, so probably best not to use the list2 after.
      */
-    mergeAfterPosition( list1: LinkedList, list2: LinkedList, position: number )
+    mergeAfterPosition( list2: LinkedList, position: number )
         {
         if ( position < 0 )
             {
@@ -519,20 +528,21 @@ class LinkedList
             }
 
         var first2 = list2.first;
-        var start1 = list1.first;
+        var start1 = this.first;
 
             // list2 is empty
         if ( !first2 )
             {
-            return list1;
+            return this;
             }
 
             // list1 is empty
         if ( !start1 )
             {
-            list1.first = list2.first;
-            list1.last = list2.last;
-            list1.length = list2.length;
+            this.first = list2.first;
+            this.last = list2.last;
+            this.length = list2.length;
+            return this;
             }
 
         var a = 0;
@@ -566,12 +576,12 @@ class LinkedList
 
         else
             {
-            list1.last = list2.last;
+            this.last = list2.last;
             }
 
 
-        list1.length += list2.length;
+        this.length += list2.length;
 
-        return list1;
+        return this;
         }
     }

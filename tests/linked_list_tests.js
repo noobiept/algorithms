@@ -13,10 +13,10 @@ function testList( assert, list, values )
         // check the length
     assert.deepEqual( list.length, length );
 
-    if ( values.length === 0 )
+    if ( length === 0 )
         {
-        assert.deepEqual( list.previous, null );
-        assert.deepEqual( list.next, null );
+        assert.deepEqual( list.first, null );
+        assert.deepEqual( list.last, null );
         return;
         }
 
@@ -77,9 +77,11 @@ QUnit.test( 'addAfter()', function( assert )
 
     var node = list.addStart( 4 );
 
+        // add at the end
     list.addAfter( node, 2 );
     testList( assert, list, [ 4, 2 ] );
 
+        // add in the middle
     list.addAfter( node, 1 );
     testList( assert, list, [ 4, 1, 2 ] );
     });
@@ -89,9 +91,11 @@ QUnit.test( 'addBefore()', function( assert )
 
     var node = list.addEnd( 1 );
 
+        // add in the beginning
     list.addBefore( node, 2 );
     testList( assert, list, [ 2, 1 ] );
 
+        // add in the middle
     list.addBefore( node, 4 );
     testList( assert, list, [ 2, 4, 1 ] );
     });
@@ -170,10 +174,6 @@ QUnit.test( 'removeFirst()', function( assert )
     var list = new LinkedList();
 
     list.addEnd( 1 );
-    list.removeFirst();
-    testList( assert, list, [] );
-
-    list.addEnd( 1 );
     list.addEnd( 2 );
     list.addEnd( 3 );
 
@@ -182,6 +182,9 @@ QUnit.test( 'removeFirst()', function( assert )
 
     list.removeFirst();
     testList( assert, list, [ 3 ] );
+
+    list.removeFirst();
+    testList( assert, list, [] );
     });
 QUnit.test( 'removeLast()', function( assert )
     {
@@ -271,7 +274,7 @@ QUnit.test( 'get()', function( assert )
     assert.deepEqual( list.get( 0 ).value, 1 );
     assert.deepEqual( list.get( 1 ).value, 2 );
     assert.deepEqual( list.get( 2 ).value, 3 );
-    assert.deepEqual( list.get( 3 ).value, null );
+    assert.deepEqual( list.get( 3 ), null );
     });
 QUnit.test( 'find()', function( assert )
     {
@@ -312,9 +315,88 @@ QUnit.test( 'toArray()', function( assert )
     });
 QUnit.test( 'merge()', function( assert )
     {
+        // empty lists
+    var list1 = new LinkedList();
+    var list2 = new LinkedList();
 
+    list1.merge( list2 );
+    testList( assert, list1, [] );
+
+        // empty list1
+    list1 = new LinkedList();
+    list2 = new LinkedList();
+
+    list2.addEnd( 1 );
+    list2.addEnd( 2 );
+
+    list1.merge( list2 );
+    testList( assert, list1, [ 1, 2 ] );
+
+        // empty list2
+    list1 = new LinkedList();
+    list2 = new LinkedList();
+
+    list1.addEnd( 3 );
+    list1.addEnd( 4 );
+
+    list1.merge( list2 );
+    testList( assert, list1, [ 3, 4 ] );
+
+        // merge non-empty lists
+    list1 = new LinkedList();
+    list2 = new LinkedList();
+
+    list1.addEnd( 1 );
+    list2.addEnd( 2 );
+    list2.addEnd( 3 );
+    list1.merge( list2 );
+    testList( assert, list1, [ 1, 2, 3 ] );
     });
 QUnit.test( 'mergeAfterPosition()', function( assert )
     {
+        // empty lists
+    var list1 = new LinkedList();
+    var list2 = new LinkedList();
 
+    list1.mergeAfterPosition( list2, 0 );
+    testList( assert, list1, [] );
+
+        // empty list1
+    list1 = new LinkedList();
+    list2 = new LinkedList();
+
+    list2.addEnd( 1 );
+    list1.mergeAfterPosition( list2, 10 );
+    testList( assert, list1, [ 1 ] );
+
+        // empty list2
+    list1 = new LinkedList();
+    list2 = new LinkedList();
+
+    list1.addEnd( 1 );
+    list1.addEnd( 2 );
+    list1.mergeAfterPosition( list2, 1 );
+    testList( assert, list1, [ 1, 2 ] );
+
+        // add at the end
+    list1 = new LinkedList();
+    list2 = new LinkedList();
+
+    list1.addEnd( 1 );
+    list1.addEnd( 2 );
+    list2.addEnd( 3 );
+    list2.addEnd( 4 );
+    list1.mergeAfterPosition( list2, 1 );
+    testList( assert, list1, [ 1, 2, 3, 4 ] );
+
+        // add in the middle
+    list1 = new LinkedList();
+    list2 = new LinkedList();
+
+    list1.addEnd( 1 );
+    list1.addEnd( 2 );
+    list2.addEnd( 3 );
+    list2.addEnd( 4 );
+    list1.mergeAfterPosition( list2, 0 );
+    testList( assert, list1, [ 1, 3, 4, 2 ] );
     });
