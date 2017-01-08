@@ -5,8 +5,8 @@ module BinaryTree
  */
 export class Node
     {
-    left: Node;
-    right: Node;
+    left: Node | null;
+    right: Node | null;
     value: number;
 
     constructor( value: number )
@@ -30,7 +30,7 @@ export class Node
  * @param node The root node.
  * @param value The value to be added.
  */
-export function insert( node: Node, value: number )
+export function insert( node: Node | null, value: number ): Node
     {
     if ( !node )
         {
@@ -55,7 +55,7 @@ export function insert( node: Node, value: number )
 /**
  * Find a node which has the same value.
  */
-export function find( node: Node, value: number )
+export function find( node: Node | null, value: number ): Node | null
     {
     if ( !node )
         {
@@ -82,7 +82,7 @@ export function find( node: Node, value: number )
 /**
  * Return the left-most node in the tree (that has the lowest value).
  */
-export function findMin( node: Node )
+export function findMin( node: Node | null ): Node | null
     {
     if ( !node )
         {
@@ -101,7 +101,7 @@ export function findMin( node: Node )
 /**
  * Return the right-most node in the tree (that has the highest value).
  */
-export function findMax( node: Node )
+export function findMax( node: Node | null ): Node | null
     {
     if ( !node )
         {
@@ -120,11 +120,11 @@ export function findMax( node: Node )
 /**
  * Returns an array with all the values of the tree.
  */
-export function getValues( node: Node, list?: number[] )
+export function getValues( node: Node, list?: number[] ): number[]
     {
     if ( !node )
         {
-        return;
+        return [];
         }
 
     if ( typeof list === 'undefined' )
@@ -154,7 +154,7 @@ export function getValues( node: Node, list?: number[] )
 /**
  * Return the total number of nodes in the tree.
  */
-export function getNumberOfNodes( node: Node )
+export function getNumberOfNodes( node: Node | null ): number
     {
     if ( !node )
         {
@@ -168,7 +168,7 @@ export function getNumberOfNodes( node: Node )
 /**
  * Number of nodes in the longest path from the root node.
  */
-export function maxDepth( node: Node )
+export function maxDepth( node: Node | null ): number
     {
     if ( !node )
         {
@@ -194,11 +194,11 @@ export function maxDepth( node: Node )
 /**
  * Switch the left nodes with the right nodes.
  */
-export function mirror( node: Node )
+export function mirror( node: Node | null ): void
     {
     if ( !node )
         {
-        return null;
+        return;
         }
 
     var temp = node.left;
@@ -214,7 +214,7 @@ export function mirror( node: Node )
 /**
  * Check if both trees have the same nodes/values.
  */
-export function isEquivalentTree( node1: Node, node2: Node )
+export function isEquivalentTree( node1: Node | null, node2: Node | null ): boolean
     {
     if ( !node1 )
         {
@@ -249,7 +249,7 @@ export function isEquivalentTree( node1: Node, node2: Node )
 /**
  * Its a binary search tree if the values are sorted.
  */
-export function isBinarySearchTree( node: Node )
+export function isBinarySearchTree( node: Node ): boolean
     {
     var left = true;
     var right = true;
@@ -287,7 +287,7 @@ export function isBinarySearchTree( node: Node )
 /**
  * Traverse the tree. Call the given function on every node that is part of the tree.
  */
-export function forEach( node: Node, callback: (node: Node) => any )
+export function forEach( node: Node | null, callback: (node: Node) => any ): void
     {
     if ( !node )
         {
@@ -303,7 +303,7 @@ export function forEach( node: Node, callback: (node: Node) => any )
 /**
  * Remove a node from the tree.
  */
-export function remove( root: Node, node: Node )
+export function remove( root: Node | null, node: Node ): void
     {
     if ( root.left === node )
         {
