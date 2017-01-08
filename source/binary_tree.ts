@@ -216,33 +216,30 @@ export function mirror( node: Node | null ): void
  */
 export function isEquivalentTree( node1: Node | null, node2: Node | null ): boolean
     {
-    if ( !node1 )
+    if ( !node1 && !node2 )
         {
-        if ( !node2 )
-            {
-            return true;
-            }
+        return true;
+        }
 
-        else
+    else if ( node1 && node2 )
+        {
+        if ( node1.value !== node2.value )
             {
             return false;
             }
+
+        var left = isEquivalentTree( node1.left, node2.left );
+        var right = isEquivalentTree( node1.right, node2.right );
+
+        if ( !left || !right )
+            {
+            return false;
+            }
+
+        return true;
         }
 
-    if ( node1.value !== node2.value )
-        {
-        return false;
-        }
-
-    var left = isEquivalentTree( node1.left, node2.left );
-    var right = isEquivalentTree( node1.right, node2.right );
-
-    if ( !left || !right )
-        {
-        return false;
-        }
-
-    return true;
+    return false;
     }
 
 
@@ -305,13 +302,27 @@ export function forEach( node: Node | null, callback: (node: Node) => any ): voi
  */
 export function remove( root: Node | null, node: Node ): void
     {
+    if ( !root )
+        {
+        return;
+        }
+
     if ( root.left === node )
         {
         root.left = node.left;
 
         var max = findMax( node.left );
 
-        max.right = node.right;
+        if ( max )
+            {
+            max.right = node.right;
+            }
+
+        else
+            {
+            root.left = node.right;
+            }
+
         return;
         }
 
@@ -321,7 +332,16 @@ export function remove( root: Node | null, node: Node ): void
 
         var min = findMin( node.right );
 
-        min.left = node.left;
+        if ( min )
+            {
+            min.left = node.left;
+            }
+
+        else
+            {
+            root.left = node.right;
+            }
+
         return;
         }
 
