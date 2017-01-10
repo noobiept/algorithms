@@ -1,29 +1,20 @@
-class ListNode
+interface ListNode
     {
+    previous?: ListNode;
+    next?: ListNode;
     value: any;
-    previous: ListNode | null;
-    next: ListNode | null;
-
-    constructor( value: any )
-        {
-        this.value = value;
-        this.previous = null;
-        this.next = null;
-        }
     }
 
 
 class LinkedList
     {
-    first: ListNode | null;
-    last: ListNode | null;
+    first?: ListNode;
+    last?: ListNode;
     length: number;
 
 
     constructor()
         {
-        this.first = null;
-        this.last = null;
         this.length = 0;
         }
 
@@ -31,9 +22,9 @@ class LinkedList
     /**
      * Add a value at the beginning of the list.
      */
-    addStart( value: any )
+    addStart( value: any ): ListNode
         {
-        var node = new ListNode( value );
+        var node: ListNode = { value: value };
 
         if ( this.first )
             {
@@ -57,9 +48,9 @@ class LinkedList
     /**
      * Add a value at the end of the list.
      */
-    addEnd( value: any )
+    addEnd( value: any ): ListNode
         {
-        var node = new ListNode( value );
+        var node: ListNode = { value: value };
 
         if ( this.last )
             {
@@ -83,9 +74,9 @@ class LinkedList
     /**
      * Add a new value in the position after the given node.
      */
-    addAfter( referenceNode: ListNode, value: any )
+    addAfter( referenceNode: ListNode, value: any ): ListNode
         {
-        var node = new ListNode( value );
+        var node: ListNode = { value: value };
         var next = referenceNode.next;
 
         node.previous = referenceNode;
@@ -112,9 +103,9 @@ class LinkedList
     /**
      * Add a new value in the position before the given node.
      */
-    addBefore( referenceNode: ListNode, value: any )
+    addBefore( referenceNode: ListNode, value: any ): ListNode
         {
-        var node = new ListNode( value );
+        var node: ListNode = { value: value };
         var previous = referenceNode.previous;
 
         node.previous = previous;
@@ -177,7 +168,7 @@ class LinkedList
         var previous = node.previous;
         var next = node.next;
 
-        if ( previous === null )
+        if ( !previous )
             {
             this.first = next;
             }
@@ -188,7 +179,7 @@ class LinkedList
             }
 
 
-        if ( next === null )
+        if ( !next )
             {
             this.last = previous;
             }
@@ -236,7 +227,7 @@ class LinkedList
 
             if ( next )
                 {
-                next.previous = null;
+                next.previous = undefined;
 
                 if ( !next.next )
                     {
@@ -246,7 +237,7 @@ class LinkedList
 
             else
                 {
-                this.last = null;
+                this.last = undefined;
                 }
             }
 
@@ -269,7 +260,7 @@ class LinkedList
 
             if ( previous )
                 {
-                previous.next = null;
+                previous.next = undefined;
 
                 if ( !previous.previous )
                     {
@@ -279,7 +270,7 @@ class LinkedList
 
             else
                 {
-                this.first = null;
+                this.first = undefined;
                 }
             }
 
@@ -399,7 +390,7 @@ class LinkedList
     /**
      * Get a node on the given position.
      */
-    get( position: number )
+    get( position: number ): ListNode | undefined
         {
         var node = this.first;
         var a = 0;
@@ -415,7 +406,7 @@ class LinkedList
             a++;
             }
 
-        return null;
+        return undefined;
         }
 
 
