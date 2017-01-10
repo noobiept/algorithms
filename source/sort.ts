@@ -41,7 +41,7 @@ export function bubbleSort( list: number[] )
  * Keep dividing the list in two, based on a selected value (pivot). The values lesser than the pivot are added to the left, and the values higher go to the right.
  * Keep doing that recursively until its sorted.
  */
-export function quickSort( list: number[] )
+export function quickSort( list: number[] ): number[]
     {
     if ( list.length === 0 )
         {

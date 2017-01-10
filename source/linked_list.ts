@@ -1,8 +1,8 @@
 class ListNode
     {
     value: any;
-    previous: ListNode;
-    next: ListNode;
+    previous: ListNode | null;
+    next: ListNode | null;
 
     constructor( value: any )
         {
@@ -15,8 +15,8 @@ class ListNode
 
 class LinkedList
     {
-    first: ListNode;
-    last: ListNode;
+    first: ListNode | null;
+    last: ListNode | null;
     length: number;
 
 
@@ -571,7 +571,11 @@ class LinkedList
             var last2 = list2.last;
 
             next1.previous = last2;
-            last2.next = next1;
+
+            if ( last2 )
+                {
+                last2.next = next1;
+                }
             }
 
         else
