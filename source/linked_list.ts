@@ -131,7 +131,7 @@ class LinkedList
     /**
      * Add a new value after the given node position.
      */
-    addAfterPosition( referencePosition: number, value: any )
+    addAfterPosition( referencePosition: number, value: any ): ListNode | undefined
         {
         var node = this.get( referencePosition );
 
@@ -140,14 +140,14 @@ class LinkedList
             return this.addAfter( node, value );
             }
 
-        return null;
+        return undefined;
         }
 
 
     /**
      * Add a new value before the given node position.
      */
-    addBeforePosition( referencePosition: number, value: any )
+    addBeforePosition( referencePosition: number, value: any ): ListNode | undefined
         {
         var node = this.get( referencePosition );
 
@@ -156,14 +156,14 @@ class LinkedList
             return this.addBefore( node, value );
             }
 
-        return null;
+        return undefined;
         }
 
 
     /**
      * Remove the given node from the list.
      */
-    remove( node: ListNode )
+    remove( node: ListNode ): ListNode
         {
         var previous = node.previous;
         var next = node.next;
@@ -199,7 +199,7 @@ class LinkedList
     /**
      * Remove the node in the given position.
      */
-    removePosition( position: number )
+    removePosition( position: number ): ListNode | undefined
         {
         var node = this.get( position );
 
@@ -208,14 +208,14 @@ class LinkedList
             return this.remove( node );
             }
 
-        return null;
+        return undefined;
         }
 
 
     /**
      * Remove the first node on the list.
      */
-    removeFirst()
+    removeFirst(): ListNode | undefined
         {
         var node = this.first;
 
@@ -248,7 +248,7 @@ class LinkedList
     /**
      * Remove the last node of the list.
      */
-    removeLast()
+    removeLast(): ListNode | undefined
         {
         var node = this.last;
 
@@ -281,7 +281,7 @@ class LinkedList
     /**
      * Remove the first node that has the given value.
      */
-    removeValue( value: any )
+    removeValue( value: any ): ListNode | undefined
         {
         var node = this.first;
 
@@ -295,14 +295,14 @@ class LinkedList
             node = node.next;
             }
 
-        return null;
+        return undefined;
         }
 
 
     /**
      * Check if there is a node with the same value.
      */
-    hasValue( value: any )
+    hasValue( value: any ): boolean
         {
         var node = this.first;
 
@@ -323,7 +323,7 @@ class LinkedList
     /**
      * Check if a given node is present in the list.
      */
-    hasNode( node: ListNode )
+    hasNode( node: ListNode ): boolean
         {
         var tempNode = this.first;
 
@@ -344,7 +344,7 @@ class LinkedList
     /**
      * Replace a value for another. Only in the first node found.
      */
-    replace( searchValue: any, replaceValue: any )
+    replace( searchValue: any, replaceValue: any ): ListNode | undefined
         {
         var node = this.first;
 
@@ -359,14 +359,14 @@ class LinkedList
             node = node.next;
             }
 
-        return null;
+        return undefined;
         }
 
 
     /**
      * Replace a value for another. Searches through all the list nodes.
      */
-    replaceAll( searchValue: any, replaceValue: any )
+    replaceAll( searchValue: any, replaceValue: any ): ListNode[]
         {
         var node = this.first;
         var replaced = [];
@@ -413,7 +413,7 @@ class LinkedList
     /**
      * Find a node by value. Returns the first one it finds.
      */
-    find( value: any )
+    find( value: any ): ListNode | undefined
         {
         var node = this.first;
 
@@ -427,14 +427,14 @@ class LinkedList
             node = node.next;
             }
 
-        return null;
+        return undefined;
         }
 
 
     /**
      * Find all the nodes that have the given value.
      */
-    findAll( value: any )
+    findAll( value: any ): ListNode[]
         {
         var node = this.first;
         var all = [];
@@ -456,7 +456,7 @@ class LinkedList
     /**
      * Returns an array with the list's values.
      */
-    toArray()
+    toArray(): any[]
         {
         var node = this.first;
         var all = [];
@@ -476,7 +476,7 @@ class LinkedList
      * Merge list2 at the end of list1.
      * The node objects from list2 are reused, so probably best not to use the list2 after.
      */
-    merge( list2: LinkedList )
+    merge( list2: LinkedList ): this
         {
         var last1 = this.last;
         var first2 = list2.first;
@@ -511,7 +511,7 @@ class LinkedList
      * Merge list2 at a given position in list1.
      * The node objects from list2 are reused, so probably best not to use the list2 after.
      */
-    mergeAfterPosition( list2: LinkedList, position: number )
+    mergeAfterPosition( list2: LinkedList, position: number ): this
         {
         if ( position < 0 )
             {

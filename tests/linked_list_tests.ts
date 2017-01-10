@@ -4,9 +4,9 @@ QUnit.module( 'Linked List' );
 /**
  * Compare the list values/position with a provided array.
  */
-function testList( assert, list, values )
+function testList( assert: Assert, list: LinkedList, values: number[] )
     {
-    var node;
+    var node: ListNode;
     var a;
     var length = values.length;
 
@@ -15,30 +15,30 @@ function testList( assert, list, values )
 
     if ( length === 0 )
         {
-        assert.deepEqual( list.first, null );
-        assert.deepEqual( list.last, null );
+        assert.deepEqual( list.first, undefined );
+        assert.deepEqual( list.last, undefined );
         return;
         }
 
 
         // move the list forward
-    node = list.first;
+    node = list.first!;
 
     for (a = 0 ; a < length ; a++)
         {
         assert.deepEqual( node.value, values[ a ] );
 
-        node = node.next;
+        node = node.next!;
         }
 
         // move the list backward
-    node = list.last;
+    node = list.last!;
 
     for (a = length - 1 ; a >= 0 ; a--)
         {
         assert.deepEqual( node.value, values[ a ] );
 
-        node = node.previous;
+        node = node.previous!;
         }
     }
 
@@ -47,8 +47,8 @@ QUnit.test( 'constructor', function( assert )
     {
     var list = new LinkedList();
 
-    assert.deepEqual( list.first, null );
-    assert.deepEqual( list.last, null );
+    assert.deepEqual( list.first, undefined );
+    assert.deepEqual( list.last, undefined );
     assert.deepEqual( list.length, 0 );
     });
 QUnit.test( 'addStart()', function( assert )
@@ -145,7 +145,7 @@ QUnit.test( 'remove()', function( assert )
     testList( assert, list, [ 1, 2 ] );
 
     list.addEnd( 3 );
-    node = list.first.next;
+    node = list.first!.next!;
     list.remove( node );
 
     testList( assert, list, [ 1, 3 ] );
@@ -215,7 +215,7 @@ QUnit.test( 'removeValue()', function( assert )
     list.removeValue( 2 );
     testList( assert, list, [ 1, 3 ] );
 
-    assert.deepEqual( list.removeValue( -1 ), null );
+    assert.deepEqual( list.removeValue( -1 ), undefined );
     });
 QUnit.test( 'hasValue()', function( assert )
     {
@@ -239,7 +239,7 @@ QUnit.test( 'hasNode()', function( assert )
     var node = list.addEnd( 3 );
 
     assert.deepEqual( list.hasNode( node ), true );
-    assert.deepEqual( list.hasNode( null ), false );
+    assert.deepEqual( list.hasNode( { value: 10 } ), false );
     });
 QUnit.test( 'replace()', function( assert )
     {
@@ -271,10 +271,10 @@ QUnit.test( 'get()', function( assert )
     list.addEnd( 2 );
     list.addEnd( 3 );
 
-    assert.deepEqual( list.get( 0 ).value, 1 );
-    assert.deepEqual( list.get( 1 ).value, 2 );
-    assert.deepEqual( list.get( 2 ).value, 3 );
-    assert.deepEqual( list.get( 3 ), null );
+    assert.deepEqual( list.get( 0 )!.value, 1 );
+    assert.deepEqual( list.get( 1 )!.value, 2 );
+    assert.deepEqual( list.get( 2 )!.value, 3 );
+    assert.deepEqual( list.get( 3 ), undefined );
     });
 QUnit.test( 'find()', function( assert )
     {
@@ -284,10 +284,10 @@ QUnit.test( 'find()', function( assert )
     list.addEnd( 4 );
     list.addEnd( 6 );
 
-    assert.deepEqual( list.find( 2 ).value, 2 );
-    assert.deepEqual( list.find( 4 ).value, 4 );
-    assert.deepEqual( list.find( 6 ).value, 6 );
-    assert.deepEqual( list.find( 8 ), null );
+    assert.deepEqual( list.find( 2 )!.value, 2 );
+    assert.deepEqual( list.find( 4 )!.value, 4 );
+    assert.deepEqual( list.find( 6 )!.value, 6 );
+    assert.deepEqual( list.find( 8 ), undefined );
     });
 QUnit.test( 'findAll()', function( assert )
     {
