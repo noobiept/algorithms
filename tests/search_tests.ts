@@ -4,7 +4,7 @@ QUnit.test( 'binarySearch()', function( assert )
     var list1 = [ 1, 2, 4, 7, 8 ];
     var list2 = [ -40, -15, 0, 100 ];
 
-    var testList = function( list )
+    var testList = function( list: number[] )
         {
         for (var a = 0 ; a < list.length ; a++)
             {

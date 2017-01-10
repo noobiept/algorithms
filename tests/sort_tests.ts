@@ -1,7 +1,7 @@
 QUnit.module( 'Sort' );
 
 
-function testSort( sort_f, assert )
+function testSort( sort_f: (list: number[]) => void, assert: Assert )
 {
 var values = [
         { test: [ 4, 1, 0, 7, 3 ], expect: [ 0, 1, 3, 4, 7 ] },

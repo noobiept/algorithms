@@ -4,9 +4,9 @@ QUnit.module( 'Linked List' );
 /**
  * Compare the list values/position with a provided array.
  */
-function testList( assert: Assert, list: LinkedList, values: number[] )
+function testList<ValueType>( assert: Assert, list: LinkedList<ValueType>, values: number[] )
     {
-    var node: ListNode;
+    var node;
     var a;
     var length = values.length;
 
@@ -45,17 +45,23 @@ function testList( assert: Assert, list: LinkedList, values: number[] )
 
 QUnit.test( 'constructor', function( assert )
     {
-    var list = new LinkedList();
+    var emptyList = new LinkedList();
 
-    assert.deepEqual( list.first, undefined );
-    assert.deepEqual( list.last, undefined );
-    assert.deepEqual( list.length, 0 );
+    assert.deepEqual( emptyList.first, undefined );
+    assert.deepEqual( emptyList.last, undefined );
+    assert.deepEqual( emptyList.length, 0 );
+
+    var list = new LinkedList( 1, 2, 3 );
+
+    assert.deepEqual( list.length, 3 );
+    assert.deepEqual( list.first!.value, 1 );
+    assert.deepEqual( list.first!.next!.value, 2 );
+    assert.deepEqual( list.last!.value, 3 );
     });
 QUnit.test( 'addStart()', function( assert )
     {
-    var list = new LinkedList();
+    var list = new LinkedList( 1 );
 
-    list.addStart( 1 );
     list.addStart( 2 );
     list.addStart( 3 );
 
@@ -63,9 +69,8 @@ QUnit.test( 'addStart()', function( assert )
     });
 QUnit.test( 'addEnd()', function( assert )
     {
-    var list = new LinkedList();
+    var list = new LinkedList( 1 );
 
-    list.addEnd( 1 );
     list.addEnd( 2 );
     list.addEnd( 3 );
 
@@ -101,9 +106,8 @@ QUnit.test( 'addBefore()', function( assert )
     });
 QUnit.test( 'addAfterPosition()', function( assert )
     {
-    var list = new LinkedList();
+    var list = new LinkedList( 1 );
 
-    list.addEnd( 1 );
     list.addAfterPosition( 0, 2 );
     list.addAfterPosition( 0, 3 );
     list.addAfterPosition( 2, 6 );
@@ -113,9 +117,8 @@ QUnit.test( 'addAfterPosition()', function( assert )
     });
 QUnit.test( 'addBeforePosition()', function( assert )
     {
-    var list = new LinkedList();
+    var list = new LinkedList( 1 );
 
-    list.addStart( 1 );
     list.addBeforePosition( 0, 2 );
     list.addBeforePosition( 0, 3 );
     list.addBeforePosition( 2, 4 );
@@ -152,11 +155,7 @@ QUnit.test( 'remove()', function( assert )
     });
 QUnit.test( 'removePosition()', function( assert )
     {
-    var list = new LinkedList();
-
-    list.addEnd( 1 );
-    list.addEnd( 2 );
-    list.addEnd( 3 );
+    var list = new LinkedList( 1, 2, 3 );
 
     list.removePosition( 2 );
     testList( assert, list, [ 1, 2 ] );
@@ -171,11 +170,7 @@ QUnit.test( 'removePosition()', function( assert )
     });
 QUnit.test( 'removeFirst()', function( assert )
     {
-    var list = new LinkedList();
-
-    list.addEnd( 1 );
-    list.addEnd( 2 );
-    list.addEnd( 3 );
+    var list = new LinkedList( 1, 2, 3 );
 
     list.removeFirst();
     testList( assert, list, [ 2, 3 ] );
@@ -188,9 +183,8 @@ QUnit.test( 'removeFirst()', function( assert )
     });
 QUnit.test( 'removeLast()', function( assert )
     {
-    var list = new LinkedList();
+    var list = new LinkedList( 1 );
 
-    list.addEnd( 1 );
     list.removeLast();
     testList( assert, list, [] );
 
@@ -206,11 +200,7 @@ QUnit.test( 'removeLast()', function( assert )
     });
 QUnit.test( 'removeValue()', function( assert )
     {
-    var list = new LinkedList();
-
-    list.addEnd( 1 );
-    list.addEnd( 2 );
-    list.addEnd( 3 );
+    var list = new LinkedList( 1, 2, 3 );
 
     list.removeValue( 2 );
     testList( assert, list, [ 1, 3 ] );
@@ -243,22 +233,16 @@ QUnit.test( 'hasNode()', function( assert )
     });
 QUnit.test( 'replace()', function( assert )
     {
-    var list = new LinkedList();
+    var list = new LinkedList( 1, 2, 3 );
 
-    list.addEnd( 1 );
-    list.addEnd( 2 );
-    list.addEnd( 3 );
     list.replace( 1, -1 );
 
     testList( assert, list, [ -1, 2, 3 ] );
     });
 QUnit.test( 'replaceAll()', function( assert )
     {
-    var list = new LinkedList();
+    var list = new LinkedList( 1, 1, 1 );
 
-    list.addEnd( 1 );
-    list.addEnd( 1 );
-    list.addEnd( 1 );
     list.replaceAll( 1, -1 );
 
     testList( assert, list, [ -1, -1, -1 ] );

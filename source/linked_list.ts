@@ -10,12 +10,15 @@ class LinkedList<ValueType>
     {
     first?: ListNode<ValueType>;
     last?: ListNode<ValueType>;
-    length: number;
+    length = 0;
 
 
-    constructor()
+    constructor( ...values: ValueType[] )
         {
-        this.length = 0;
+        for (let a = 0 ; a < values.length ; a++)
+            {
+            this.addEnd( values[ a ] );
+            }
         }
 
 
