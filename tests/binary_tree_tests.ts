@@ -15,7 +15,7 @@ function getTree()
 
 QUnit.test( 'Node class', function( assert )
     {
-    var node = new BinaryTree.Node( 1 );
+    var node = { value: 1 };
 
     assert.deepEqual( node.value, 1 );
     });
@@ -24,31 +24,31 @@ QUnit.test( 'insert()', function( assert )
     var root = getTree();
 
     assert.deepEqual( root.value, 2 );
-    assert.deepEqual( root.left.value, 1 );
-    assert.deepEqual( root.right.value, 3 );
-    assert.deepEqual( root.right.right.value, 4 );
+    assert.deepEqual( root.left!.value, 1 );
+    assert.deepEqual( root.right!.value, 3 );
+    assert.deepEqual( root.right!.right!.value, 4 );
     });
 QUnit.test( 'find()', function( assert )
     {
     var root = getTree();
 
-    assert.deepEqual( BinaryTree.find( root, 1 ).value, 1 );
-    assert.deepEqual( BinaryTree.find( root, 2 ).value, 2 );
-    assert.deepEqual( BinaryTree.find( root, 3 ).value, 3 );
-    assert.deepEqual( BinaryTree.find( root, 4 ).value, 4 );
-    assert.deepEqual( BinaryTree.find( root, 5 ), null );
+    assert.deepEqual( BinaryTree.find( root, 1 )!.value, 1 );
+    assert.deepEqual( BinaryTree.find( root, 2 )!.value, 2 );
+    assert.deepEqual( BinaryTree.find( root, 3 )!.value, 3 );
+    assert.deepEqual( BinaryTree.find( root, 4 )!.value, 4 );
+    assert.deepEqual( BinaryTree.find( root, 5 ), undefined );
     });
 QUnit.test( 'findMin()', function( assert )
     {
     var root = getTree();
 
-    assert.deepEqual( BinaryTree.findMin( root ).value, 1 );
+    assert.deepEqual( BinaryTree.findMin( root )!.value, 1 );
     });
 QUnit.test( 'findMax()', function( assert )
     {
     var root = getTree();
 
-    assert.deepEqual( BinaryTree.findMax( root ).value, 4 );
+    assert.deepEqual( BinaryTree.findMax( root )!.value, 4 );
     });
 QUnit.test( 'getValues()', function( assert )
     {
@@ -76,8 +76,8 @@ QUnit.test( 'mirror()', function( assert )
 
     BinaryTree.mirror( root );
 
-    assert.deepEqual( root.left.value, 3 );
-    assert.deepEqual( root.right.value, 1 );
+    assert.deepEqual( root.left!.value, 3 );
+    assert.deepEqual( root.right!.value, 1 );
     });
 QUnit.test( 'isEquivalentTree()', function( assert )
     {
@@ -119,8 +119,8 @@ QUnit.test( 'remove()', function( assert )
 
     assert.deepEqual( BinaryTree.getNumberOfNodes( root ), 4 );
 
-    BinaryTree.remove( root, root.right );
+    BinaryTree.remove( root, root.right! );
 
     assert.deepEqual( BinaryTree.getNumberOfNodes( root ), 3 );
-    assert.deepEqual( root.right.value, 4 );
+    assert.deepEqual( root.right!.value, 4 );
     });

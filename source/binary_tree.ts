@@ -3,18 +3,11 @@ module BinaryTree
 /**
  * Tree nodes.
  */
-export class Node
+export interface Node
     {
-    left: Node | null;
-    right: Node | null;
+    left?: Node;
+    right?: Node;
     value: number;
-
-    constructor( value: number )
-        {
-        this.value = value;
-        this.left = null;
-        this.right = null;
-        }
     }
 
 
@@ -30,11 +23,11 @@ export class Node
  * @param node The root node.
  * @param value The value to be added.
  */
-export function insert( node: Node | null, value: number ): Node
+export function insert( node: Node | undefined, value: number ): Node
     {
     if ( !node )
         {
-        return new Node( value );
+        return { value: value };
         }
 
 
@@ -55,11 +48,11 @@ export function insert( node: Node | null, value: number ): Node
 /**
  * Find a node which has the same value.
  */
-export function find( node: Node | null, value: number ): Node | null
+export function find( node: Node | undefined, value: number ): Node | undefined
     {
     if ( !node )
         {
-        return null;
+        return undefined;
         }
 
     if ( value === node.value )
@@ -82,16 +75,14 @@ export function find( node: Node | null, value: number ): Node | null
 /**
  * Return the left-most node in the tree (that has the lowest value).
  */
-export function findMin( node: Node | null ): Node | null
+export function findMin( node: Node | undefined ): Node | undefined
     {
-    if ( !node )
+    if ( node )
         {
-        return null;
-        }
-
-    while( node.left )
-        {
-        node = node.left;
+        while( node.left )
+            {
+            node = node.left;
+            }
         }
 
     return node;
@@ -101,16 +92,14 @@ export function findMin( node: Node | null ): Node | null
 /**
  * Return the right-most node in the tree (that has the highest value).
  */
-export function findMax( node: Node | null ): Node | null
+export function findMax( node: Node | undefined ): Node | undefined
     {
-    if ( !node )
+    if ( node )
         {
-        return null;
-        }
-
-    while( node.right )
-        {
-        node = node.right;
+        while( node.right )
+            {
+            node = node.right;
+            }
         }
 
     return node;
@@ -154,7 +143,7 @@ export function getValues( node: Node, list?: number[] ): number[]
 /**
  * Return the total number of nodes in the tree.
  */
-export function getNumberOfNodes( node: Node | null ): number
+export function getNumberOfNodes( node: Node | undefined ): number
     {
     if ( !node )
         {
@@ -168,7 +157,7 @@ export function getNumberOfNodes( node: Node | null ): number
 /**
  * Number of nodes in the longest path from the root node.
  */
-export function maxDepth( node: Node | null ): number
+export function maxDepth( node: Node | undefined ): number
     {
     if ( !node )
         {
@@ -194,7 +183,7 @@ export function maxDepth( node: Node | null ): number
 /**
  * Switch the left nodes with the right nodes.
  */
-export function mirror( node: Node | null ): void
+export function mirror( node: Node | undefined ): void
     {
     if ( !node )
         {
@@ -214,7 +203,7 @@ export function mirror( node: Node | null ): void
 /**
  * Check if both trees have the same nodes/values.
  */
-export function isEquivalentTree( node1: Node | null, node2: Node | null ): boolean
+export function isEquivalentTree( node1: Node | undefined, node2: Node | undefined ): boolean
     {
     if ( !node1 && !node2 )
         {
@@ -284,7 +273,7 @@ export function isBinarySearchTree( node: Node ): boolean
 /**
  * Traverse the tree. Call the given function on every node that is part of the tree.
  */
-export function forEach( node: Node | null, callback: (node: Node) => any ): void
+export function forEach( node: Node | undefined, callback: (node: Node) => any ): void
     {
     if ( !node )
         {
@@ -300,7 +289,7 @@ export function forEach( node: Node | null, callback: (node: Node) => any ): voi
 /**
  * Remove a node from the tree.
  */
-export function remove( root: Node | null, node: Node ): void
+export function remove( root: Node | undefined, node: Node ): void
     {
     if ( !root )
         {
