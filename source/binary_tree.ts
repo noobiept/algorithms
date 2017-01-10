@@ -3,11 +3,11 @@ module BinaryTree
 /**
  * Tree nodes.
  */
-export interface Node
+export interface Node<ValueType>
     {
-    left?: Node;
-    right?: Node;
-    value: number;
+    left?: Node<ValueType>;
+    right?: Node<ValueType>;
+    value: ValueType;
     }
 
 
@@ -23,7 +23,7 @@ export interface Node
  * @param node The root node.
  * @param value The value to be added.
  */
-export function insert( node: Node | undefined, value: number ): Node
+export function insert<ValueType>( node: Node<ValueType> | undefined, value: ValueType ): Node<ValueType>
     {
     if ( !node )
         {
@@ -48,7 +48,7 @@ export function insert( node: Node | undefined, value: number ): Node
 /**
  * Find a node which has the same value.
  */
-export function find( node: Node | undefined, value: number ): Node | undefined
+export function find<ValueType>( node: Node<ValueType> | undefined, value: ValueType ): Node<ValueType> | undefined
     {
     if ( !node )
         {
@@ -75,7 +75,7 @@ export function find( node: Node | undefined, value: number ): Node | undefined
 /**
  * Return the left-most node in the tree (that has the lowest value).
  */
-export function findMin( node: Node | undefined ): Node | undefined
+export function findMin<ValueType>( node: Node<ValueType> | undefined ): Node<ValueType> | undefined
     {
     if ( node )
         {
@@ -92,7 +92,7 @@ export function findMin( node: Node | undefined ): Node | undefined
 /**
  * Return the right-most node in the tree (that has the highest value).
  */
-export function findMax( node: Node | undefined ): Node | undefined
+export function findMax<ValueType>( node: Node<ValueType> | undefined ): Node<ValueType> | undefined
     {
     if ( node )
         {
@@ -109,7 +109,7 @@ export function findMax( node: Node | undefined ): Node | undefined
 /**
  * Returns an array with all the values of the tree.
  */
-export function getValues( node: Node, list?: number[] ): number[]
+export function getValues<ValueType>( node: Node<ValueType>, list?: ValueType[] ): ValueType[]
     {
     if ( !node )
         {
@@ -143,7 +143,7 @@ export function getValues( node: Node, list?: number[] ): number[]
 /**
  * Return the total number of nodes in the tree.
  */
-export function getNumberOfNodes( node: Node | undefined ): number
+export function getNumberOfNodes<ValueType>( node: Node<ValueType> | undefined ): number
     {
     if ( !node )
         {
@@ -157,7 +157,7 @@ export function getNumberOfNodes( node: Node | undefined ): number
 /**
  * Number of nodes in the longest path from the root node.
  */
-export function maxDepth( node: Node | undefined ): number
+export function maxDepth<ValueType>( node: Node<ValueType> | undefined ): number
     {
     if ( !node )
         {
@@ -183,7 +183,7 @@ export function maxDepth( node: Node | undefined ): number
 /**
  * Switch the left nodes with the right nodes.
  */
-export function mirror( node: Node | undefined ): void
+export function mirror<ValueType>( node: Node<ValueType> | undefined ): void
     {
     if ( !node )
         {
@@ -203,7 +203,7 @@ export function mirror( node: Node | undefined ): void
 /**
  * Check if both trees have the same nodes/values.
  */
-export function isEquivalentTree( node1: Node | undefined, node2: Node | undefined ): boolean
+export function isEquivalentTree<ValueType>( node1: Node<ValueType> | undefined, node2: Node<ValueType> | undefined ): boolean
     {
     if ( !node1 && !node2 )
         {
@@ -235,7 +235,7 @@ export function isEquivalentTree( node1: Node | undefined, node2: Node | undefin
 /**
  * Its a binary search tree if the values are sorted.
  */
-export function isBinarySearchTree( node: Node ): boolean
+export function isBinarySearchTree<ValueType>( node: Node<ValueType> ): boolean
     {
     var left = true;
     var right = true;
@@ -273,7 +273,7 @@ export function isBinarySearchTree( node: Node ): boolean
 /**
  * Traverse the tree. Call the given function on every node that is part of the tree.
  */
-export function forEach( node: Node | undefined, callback: (node: Node) => any ): void
+export function forEach<ValueType>( node: Node<ValueType> | undefined, callback: (node: Node<ValueType>) => void ): void
     {
     if ( !node )
         {
@@ -289,7 +289,7 @@ export function forEach( node: Node | undefined, callback: (node: Node) => any )
 /**
  * Remove a node from the tree.
  */
-export function remove( root: Node | undefined, node: Node ): void
+export function remove<ValueType>( root: Node<ValueType> | undefined, node: Node<ValueType> ): void
     {
     if ( !root )
         {
