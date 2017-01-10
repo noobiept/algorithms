@@ -1,15 +1,15 @@
-interface ListNode
+interface ListNode<ValueType>
     {
-    previous?: ListNode;
-    next?: ListNode;
-    value: any;
+    previous?: ListNode<ValueType>;
+    next?: ListNode<ValueType>;
+    value: ValueType;
     }
 
 
-class LinkedList
+class LinkedList<ValueType>
     {
-    first?: ListNode;
-    last?: ListNode;
+    first?: ListNode<ValueType>;
+    last?: ListNode<ValueType>;
     length: number;
 
 
@@ -22,9 +22,9 @@ class LinkedList
     /**
      * Add a value at the beginning of the list.
      */
-    addStart( value: any ): ListNode
+    addStart( value: ValueType ): ListNode<ValueType>
         {
-        var node: ListNode = { value: value };
+        var node: ListNode<ValueType> = { value: value };
 
         if ( this.first )
             {
@@ -48,9 +48,9 @@ class LinkedList
     /**
      * Add a value at the end of the list.
      */
-    addEnd( value: any ): ListNode
+    addEnd( value: ValueType ): ListNode<ValueType>
         {
-        var node: ListNode = { value: value };
+        var node: ListNode<ValueType> = { value: value };
 
         if ( this.last )
             {
@@ -74,9 +74,9 @@ class LinkedList
     /**
      * Add a new value in the position after the given node.
      */
-    addAfter( referenceNode: ListNode, value: any ): ListNode
+    addAfter( referenceNode: ListNode<ValueType>, value: ValueType ): ListNode<ValueType>
         {
-        var node: ListNode = { value: value };
+        var node: ListNode<ValueType> = { value: value };
         var next = referenceNode.next;
 
         node.previous = referenceNode;
@@ -103,9 +103,9 @@ class LinkedList
     /**
      * Add a new value in the position before the given node.
      */
-    addBefore( referenceNode: ListNode, value: any ): ListNode
+    addBefore( referenceNode: ListNode<ValueType>, value: ValueType ): ListNode<ValueType>
         {
-        var node: ListNode = { value: value };
+        var node: ListNode<ValueType> = { value: value };
         var previous = referenceNode.previous;
 
         node.previous = previous;
@@ -131,7 +131,7 @@ class LinkedList
     /**
      * Add a new value after the given node position.
      */
-    addAfterPosition( referencePosition: number, value: any ): ListNode | undefined
+    addAfterPosition( referencePosition: number, value: ValueType ): ListNode<ValueType> | undefined
         {
         var node = this.get( referencePosition );
 
@@ -147,7 +147,7 @@ class LinkedList
     /**
      * Add a new value before the given node position.
      */
-    addBeforePosition( referencePosition: number, value: any ): ListNode | undefined
+    addBeforePosition( referencePosition: number, value: ValueType ): ListNode<ValueType> | undefined
         {
         var node = this.get( referencePosition );
 
@@ -163,7 +163,7 @@ class LinkedList
     /**
      * Remove the given node from the list.
      */
-    remove( node: ListNode ): ListNode
+    remove( node: ListNode<ValueType> ): ListNode<ValueType>
         {
         var previous = node.previous;
         var next = node.next;
@@ -199,7 +199,7 @@ class LinkedList
     /**
      * Remove the node in the given position.
      */
-    removePosition( position: number ): ListNode | undefined
+    removePosition( position: number ): ListNode<ValueType> | undefined
         {
         var node = this.get( position );
 
@@ -215,7 +215,7 @@ class LinkedList
     /**
      * Remove the first node on the list.
      */
-    removeFirst(): ListNode | undefined
+    removeFirst(): ListNode<ValueType> | undefined
         {
         var node = this.first;
 
@@ -248,7 +248,7 @@ class LinkedList
     /**
      * Remove the last node of the list.
      */
-    removeLast(): ListNode | undefined
+    removeLast(): ListNode<ValueType> | undefined
         {
         var node = this.last;
 
@@ -281,7 +281,7 @@ class LinkedList
     /**
      * Remove the first node that has the given value.
      */
-    removeValue( value: any ): ListNode | undefined
+    removeValue( value: ValueType ): ListNode<ValueType> | undefined
         {
         var node = this.first;
 
@@ -302,7 +302,7 @@ class LinkedList
     /**
      * Check if there is a node with the same value.
      */
-    hasValue( value: any ): boolean
+    hasValue( value: ValueType ): boolean
         {
         var node = this.first;
 
@@ -323,7 +323,7 @@ class LinkedList
     /**
      * Check if a given node is present in the list.
      */
-    hasNode( node: ListNode ): boolean
+    hasNode( node: ListNode<ValueType> ): boolean
         {
         var tempNode = this.first;
 
@@ -344,7 +344,7 @@ class LinkedList
     /**
      * Replace a value for another. Only in the first node found.
      */
-    replace( searchValue: any, replaceValue: any ): ListNode | undefined
+    replace( searchValue: ValueType, replaceValue: ValueType ): ListNode<ValueType> | undefined
         {
         var node = this.first;
 
@@ -366,7 +366,7 @@ class LinkedList
     /**
      * Replace a value for another. Searches through all the list nodes.
      */
-    replaceAll( searchValue: any, replaceValue: any ): ListNode[]
+    replaceAll( searchValue: ValueType, replaceValue: ValueType ): ListNode<ValueType>[]
         {
         var node = this.first;
         var replaced = [];
@@ -390,7 +390,7 @@ class LinkedList
     /**
      * Get a node on the given position.
      */
-    get( position: number ): ListNode | undefined
+    get( position: number ): ListNode<ValueType> | undefined
         {
         var node = this.first;
         var a = 0;
@@ -413,7 +413,7 @@ class LinkedList
     /**
      * Find a node by value. Returns the first one it finds.
      */
-    find( value: any ): ListNode | undefined
+    find( value: ValueType ): ListNode<ValueType> | undefined
         {
         var node = this.first;
 
@@ -434,7 +434,7 @@ class LinkedList
     /**
      * Find all the nodes that have the given value.
      */
-    findAll( value: any ): ListNode[]
+    findAll( value: ValueType ): ListNode<ValueType>[]
         {
         var node = this.first;
         var all = [];
@@ -456,7 +456,7 @@ class LinkedList
     /**
      * Returns an array with the list's values.
      */
-    toArray(): any[]
+    toArray(): ValueType[]
         {
         var node = this.first;
         var all = [];
@@ -476,7 +476,7 @@ class LinkedList
      * Merge list2 at the end of list1.
      * The node objects from list2 are reused, so probably best not to use the list2 after.
      */
-    merge( list2: LinkedList ): this
+    merge( list2: LinkedList<ValueType> ): this
         {
         var last1 = this.last;
         var first2 = list2.first;
@@ -511,7 +511,7 @@ class LinkedList
      * Merge list2 at a given position in list1.
      * The node objects from list2 are reused, so probably best not to use the list2 after.
      */
-    mergeAfterPosition( list2: LinkedList, position: number ): this
+    mergeAfterPosition( list2: LinkedList<ValueType>, position: number ): this
         {
         if ( position < 0 )
             {
